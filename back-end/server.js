@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 
 
 const expenseSchema = new mongoose.Schema({
-  date: Date,
+  date: String,
   amount: Number,
   category: String,
   description: String,
@@ -20,8 +20,8 @@ const expenseSchema = new mongoose.Schema({
 const Expense = mongoose.model('Expense', expenseSchema);
 
 const incomeSchema = new mongoose.Schema({
-  date: Date,
-  abount: Number,
+  date: String,
+  amount: Number,
   description: String,
   other: String
 });
@@ -29,6 +29,7 @@ const Income = mongoose.model('Income', incomeSchema);
 
 
 app.get('/api/expense', async(req, res) => {
+  console.log("Get expenses request");
   try {
     let expenses = await Expense.find();
     res.send(expenses);
@@ -40,6 +41,7 @@ app.get('/api/expense', async(req, res) => {
 });
 
 app.post('/api/expense', async(req, res) => {
+  console.log("Post expense request");
   const expense = new Expense({
     date: req.body.date,
     amount: req.body.amount,
@@ -58,6 +60,7 @@ app.post('/api/expense', async(req, res) => {
 });
 
 app.put('/api/expense/:id', async(req, res) => {
+  console.log("Put expense request");
   try {
     let expense = await Expense.findOne({
       _id: req.params.id
@@ -77,6 +80,7 @@ app.put('/api/expense/:id', async(req, res) => {
 });
 
 app.delete('/api/expense/:id', async (req, res) => {
+  console.log("Delete expense request");
   try {
     await Expense.deleteOne({
       _id: req.params.id
@@ -89,6 +93,7 @@ app.delete('/api/expense/:id', async (req, res) => {
 });
 
 app.get('/api/income', async(req, res) => {
+  console.log("Get income request");
   try {
     let income = await Income.find();
     res.send(income);
@@ -100,6 +105,7 @@ app.get('/api/income', async(req, res) => {
 });
 
 app.post('/api/income', async(req, res) => {
+  console.log("Post income request");
   const income = new Income({
     date: req.body.date,
     amount: req.body.amount,
@@ -118,6 +124,7 @@ app.post('/api/income', async(req, res) => {
 });
 
 app.put('/api/income/:id', async(req, res) => {
+  console.log("Put income request");
   try {
     let income = await Income.findOne({
       _id: req.params.id
@@ -136,6 +143,7 @@ app.put('/api/income/:id', async(req, res) => {
 });
 
 app.delete('/api/income/:id', async (req, res) => {
+  console.log("Delete income request");
   try {
     await Income.deleteOne({
       _id: req.params.id
